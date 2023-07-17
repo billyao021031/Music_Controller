@@ -46,6 +46,13 @@ or for development:
 ```bash
 npm run dev
 ```
+### Requirement of Spotify
+Please have your Spotify music open while you run in the local server. 
+However, only Spotify Premium user can control the pause/play button due to the developer functionality limitation.
+
+Ideally you should have the display as:
+
+![sample](https://github.com/billyao021031/demo/screenshot.png)
 
 ## Design
 
@@ -61,4 +68,4 @@ App Name | Purpose
 ---------|---------
 **api** | Handle standard CRUD operation on database models, such as the keeping track of the room and people in the room
 **spotify** | Allows our app to connect to Spotify API and access the music
-**frontend** | Implements the webpage design with React
+**frontend** | Implements the multiple webpage design with React
