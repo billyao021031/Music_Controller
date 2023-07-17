@@ -52,7 +52,7 @@ However, only Spotify Premium user can control the pause/play button due to the 
 
 Ideally you should have the display as:
 
-![sample](https://github.com/billyao021031/demo/screenshot.png)
+![sample](https://github.com/billyao021031/Music_Controller/blob/main/demo/screenshot.png)
 
 ## Design
 
