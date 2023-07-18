@@ -21,6 +21,7 @@ def update_or_create_user_tokens(session_id, access_token, token_type, expires_i
     tokens = get_user_tokens(session_id)
     expires_in = timezone.now() + timedelta(seconds=expires_in)
 
+    #if user has a token, refersh a new record
     if tokens:
         tokens.access_token = access_token
         tokens.refresh_token = refresh_token
@@ -28,6 +29,7 @@ def update_or_create_user_tokens(session_id, access_token, token_type, expires_i
         tokens.token_type = token_type
         tokens.save(update_fields=['access_token',
                                    'refresh_token', 'expires_in', 'token_type'])
+    #if the user does not have a token, create a new record
     else:
         tokens = SpotifyToken(user=session_id, access_token=access_token,
                               refresh_token=refresh_token, token_type=token_type, expires_in=expires_in)
@@ -38,6 +40,7 @@ def is_spotify_authenticated(session_id):
     tokens = get_user_tokens(session_id)
     if tokens:
         expiry = tokens.expires_in
+        #if it already expires, refresh token
         if expiry <= timezone.now():
             refresh_spotify_token(session_id)
 
@@ -64,6 +67,7 @@ def refresh_spotify_token(session_id):
         session_id, access_token, token_type, expires_in, refresh_token)
 
 
+#used to execute different api request (play, pause, skip)
 def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
     tokens = get_user_tokens(session_id)
     headers = {'Content-Type': 'application/json',

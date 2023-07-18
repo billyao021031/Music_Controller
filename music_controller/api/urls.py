@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import RoomView, CreateRoomView, GetRoom, JoinRoom, UserInRoom, LeaveRoom, UpdateRoom
 
+#sets URL pattern and map them to specific view functions  or classes
 urlpatterns = [
     path('room', RoomView.as_view()),
     path('create-room', CreateRoomView.as_view()),

@@ -20,6 +20,7 @@ export default class HomePage extends Component {
     this.clearRoomCode = this.clearRoomCode.bind(this);
   }
 
+  //automatically called by React after the component is render to the screen. 
   async componentDidMount() {
     fetch("/api/user-in-room")
       .then((response) => response.json())
@@ -62,6 +63,7 @@ export default class HomePage extends Component {
     return (
       <Router>
         <Switch>
+          {/* make sure if a session exists, return to the corresponding roomcode session */}
           <Route
             exact
             path="/"

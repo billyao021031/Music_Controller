@@ -13,6 +13,7 @@ import { Collapse } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default class CreateRoomPage extends Component {
+  //provide default props in case they are not explicitly passed to a component
   static defaultProps = {
     votesToSkip: 2,
     guestCanPause: true,
@@ -59,6 +60,7 @@ export default class CreateRoomPage extends Component {
     };
     fetch("/api/create-room", requestOptions)
       .then((response) => response.json())
+      //navigate to a new URL path
       .then((data) => this.props.history.push("/room/" + data.code));
   }
 
@@ -82,6 +84,7 @@ export default class CreateRoomPage extends Component {
           errorMsg: "Error updating room...",
         });
       }
+      //render get room details
       this.props.updateCallback();
     });
   }
@@ -122,6 +125,7 @@ export default class CreateRoomPage extends Component {
   }
 
   render() {
+    //determine if we render a update-room view or a create-room view
     const title = this.props.update ? "Update Room" : "Create a Room";
 
     return (

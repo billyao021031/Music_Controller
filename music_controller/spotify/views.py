@@ -23,6 +23,7 @@ class AuthURL(APIView):
         return Response({'url': url}, status=status.HTTP_200_OK)
 
 
+#spotify callback a quest with authorization code
 def spotify_callback(request, format=None):
     code = request.GET.get('code')
     error = request.GET.get('error')
@@ -59,12 +60,15 @@ class IsAuthenticated(APIView):
 
 class CurrentSong(APIView):
     def get(self, request, format=None):
+        #get the current room
         room_code = self.request.session.get('room_code')
         room = Room.objects.filter(code=room_code)
         if room.exists():
             room = room[0]
         else:
             return Response({}, status=status.HTTP_404_NOT_FOUND)
+        
+        #given host retrieve song information from the endpoint
         host = room.host
         endpoint = "player/currently-playing"
         response = execute_spotify_api_request(host, endpoint)
@@ -79,8 +83,8 @@ class CurrentSong(APIView):
         is_playing = response.get('is_playing')
         song_id = item.get('id')
 
+        #stores the list of names for each artist 
         artist_string = ""
-
         for i, artist in enumerate(item.get('artists')):
             if i > 0:
                 artist_string += ", "
@@ -143,9 +147,11 @@ class SkipSong(APIView):
         votes_needed = room.votes_to_skip
 
         if self.request.session.session_key == room.host or len(votes) + 1 >= votes_needed:
+            #clean the votes number
             votes.delete()
             skip_song(room.host)
         else:
+            #update votes number
             vote = Vote(user=self.request.session.session_key,
                         room=room, song_id=room.current_song)
             vote.save()

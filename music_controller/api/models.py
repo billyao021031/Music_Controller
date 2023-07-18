@@ -1,20 +1,21 @@
 from django.db import models
 import string
-import random
+import random #for generating unique code to each user
 
 def code_generator():
     length = 6
     
     while True:
+        #Joins random letters together to form the code
         code = ''.join(random.choices(string.ascii_uppercase, k = length))
-        #if the code has been never used, break the loop
+        #check if the generated code already exists in the room model
         if Room.objects.filter(code= code).count() == 0:
             break
         
     return code
         
 
-# Create your models here.
+# Create the room model that contains code, host, guest-can-vote boolean, votes-to-skip, create-time and current song
 class Room(models.Model):
     code = models.CharField(max_length=8, default=code_generator, unique=True)
     host = models.CharField(max_length=50, unique=True) #only one unique host

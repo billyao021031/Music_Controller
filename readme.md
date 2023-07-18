@@ -69,3 +69,11 @@ App Name | Purpose
 **api** | Handle standard CRUD operation on database models, such as the keeping track of the room and people in the room
 **spotify** | Allows our app to connect to Spotify API and access the music
 **frontend** | Implements the multiple webpage design with React
+
+### Spotify API
+
+To access the Spotify API, we use the following steps.
+1. Application requests for authorization; the user logs in and authorizes access
+2. Application requests refresh and access tokens; Spotify returns access and refresh tokens
+3. Use the access token to access the Spotify Web API; Spotify returns requested data such as music library. This also gives control to user to pause/skip songs
+4. Access token expires every 1 hour. So we need to requests a refreshed access token; Spotify returns a new access token to your app

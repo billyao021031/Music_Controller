@@ -25,6 +25,7 @@ export default class Room extends Component {
     this.getRoomDetails();
   }
 
+  //set the interval of getting current song
   componentDidMount() {
     this.interval = setInterval(this.getCurrentSong, 1000);
   }
@@ -102,6 +103,7 @@ export default class Room extends Component {
     });
   }
 
+  //instead of navigate into a new setting page, we choose to render the setting page within room.js
   renderSettings() {
     return (
       <Grid container spacing={1}>
@@ -142,6 +144,7 @@ export default class Room extends Component {
   }
 
   render() {
+    //if we do need to show the setting 
     if (this.state.showSettings) {
       return this.renderSettings();
     }
